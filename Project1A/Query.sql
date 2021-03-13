@@ -1,0 +1,16 @@
+use project1;
+SELECT snum, ssn FROM students where name = "Becky";
+SELECT name, level FROM major WHERE snum = (SELECT snum from students where ssn = 123097834);
+SELECT name FROM courses WHERE department_code = (select code from departments where name = "Computer Science");
+Select name, level from degrees where department_code = (select code from departments where name = "Computer Science");
+select s.name from students s inner join minor m on m.snum = s.snum;
+select count(*) from students s inner join minor m on m.snum = s.snum;
+SELECT s.name, s.snum FROM students s JOIN register r on r.snum = s.snum JOIN courses c on c.number = r.course_number WHERE c.name = 'Algorithm';
+SELECT * FROM students WHERE dob = (SELECT min(dob) FROM students);
+SELECT * FROM students WHERE dob = (SELECT max(dob) FROM students);
+SELECT name, snum, ssn FROM students WHERE name LIKE '%n%' or name LIKE '%N%';
+SELECT name, snum, ssn FROM students WHERE name NOT LIKE '%n%' or name NOT LIKE '%N%';
+SELECT c.number, c.name, COUNT(r.snum) FROM courses c LEFT OUTER JOIN register r on c.number = r.course_number group by c.number;
+SELECT s.name FROM students s JOIN register r on s.snum = r.snum WHERE r.regtime = "Fall2020";
+SELECT c.number, c.name FROM courses c JOIN departments d on d.code = c.department_code WHERE d.name = 'Computer Science';
+SELECT c.number, c.name FROM courses c JOIN departments d on c.department_code = d.code WHERE d.name = 'Computer Science' or d.name = 'Landscape Architect';
